@@ -14,8 +14,37 @@ app.use(
   }),
 )
 
-app.get("/", (req, res)=>{
-    res.send("Hello World")
+app.get('/getIpro/:id', async (req,res) => {
+   try {
+      const {id} = req.params;
+      const product = await Product.findById(id)
+      res.status(200).json(product)
+   }catch (error) {
+      console.log(error.message);
+      res.status(500).json({message: error.message})
+   }
+})
+
+app.delete('/delete/:id', async (req,res) => {
+   try {
+      const {id} = req.params;
+      const product = await Product.findByIdAndDelete(id)
+      res.status(200).json(product)
+   }catch (error) {
+      console.log(error.message);
+      res.status(500).json({message: error.message})
+   }
+})
+
+app.put('/update/:id', async (req,res) => {
+   try {
+      const {id} = req.params;
+      const product = await Product.findByIdAndUpdate(id,req.body)
+      res.status(200).json(product)
+   }catch (error) {
+      console.log(error.message);
+      res.status(500).json({message: error.message})
+   }
 })
 
 app.get('/getpro', async (req,res) => {
