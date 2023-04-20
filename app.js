@@ -1,14 +1,10 @@
 const express = require("express");
-//const app = express();
+const app = express();
 const mongoose = require('mongoose');
 const Product = require('./models/productModel')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 require('dotenv').config()
-
-const route = require('./routes/product.routes')
-
-route.app.get('/getpro', async (req,res))
 
 app.use(cors())
 
@@ -19,15 +15,15 @@ app.use(
   }),
 )
 
-// app.get('/getpro', async (req,res) => {
-//    try {
-//       const product = await Product.find({})
-//       res.status(200).json(product)
-//    }catch (error) {
-//       console.log(error.message);
-//       res.status(500).json({message: error.message})
-//    }
-// })
+app.get('/getpro', async (req,res) => {
+   try {
+      const product = await Product.find({})
+      res.status(200).json(product)
+   }catch (error) {
+      console.log(error.message);
+      res.status(500).json({message: error.message})
+   }
+})
 
 app.post('/addpro', async(req,res) => {
    try {
